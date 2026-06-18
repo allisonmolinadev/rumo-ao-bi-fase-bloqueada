@@ -30,7 +30,7 @@ const MILESTONES = [
   },
   {
     value: "400M",
-    status: "locked",
+    status: "unlocked",
     title: "Ganhando tração",
     description: "A operação encontra seu ritmo. Processos amadurecem e o crescimento se torna consistente.",
     image: "",
@@ -38,7 +38,7 @@ const MILESTONES = [
   },
   {
     value: "600M",
-    status: "locked",
+    status: "unlocked",
     title: "Expansão",
     description: "Novos mercados, novas possibilidades. O alcance da empresa atinge outro patamar.",
     image: "",
@@ -46,7 +46,7 @@ const MILESTONES = [
   },
   {
     value: "800M",
-    status: "locked",
+    status: "unlocked",
     title: "Reta de elite",
     description: "Pouquíssimas empresas chegam até aqui. Estamos entre as grandes.",
     image: "",
@@ -54,7 +54,7 @@ const MILESTONES = [
   },
   {
     value: "900M",
-    status: "locked",
+    status: "unlocked",
     title: "À beira do bilhão",
     description: "O último degrau antes do topo. A conquista histórica está ao alcance das mãos.",
     image: "",
