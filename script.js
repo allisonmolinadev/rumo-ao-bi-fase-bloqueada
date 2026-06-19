@@ -257,13 +257,20 @@ function getNodePoints() {
   if (!nodePts.length) return [];
 
   // âncoras de topo/base — a base termina centralizada p/ a linha de
-  // continuação (até o rodapé) encaixar de forma suave
+  // continuação (até o rodapé) encaixar de forma suave.
+  // A âncora inferior desce até a DIVISÓRIA (borda superior da .finale, logo
+  // após a seção .journey), atravessando o padding inferior da seção. O SVG
+  // tem overflow:visible, então a linha é desenhada abaixo do track sem corte.
   const first = nodePts[0];
   const centerX = trackRect.width / 2;
+  const journeyEl = els.track.closest(".journey");
+  const bottomY = journeyEl
+    ? journeyEl.getBoundingClientRect().bottom - trackRect.top
+    : trackRect.height;
   return [
     { x: first.x, y: 0 },
     ...nodePts,
-    { x: centerX, y: trackRect.height }
+    { x: centerX, y: bottomY }
   ];
 }
 
@@ -300,10 +307,17 @@ function drawTrack() {
   // caminho de progresso: do topo até o último marco desbloqueado
   // points[0] é o topo; nós começam em index 1
   if (lastUnlockedIndex >= 0) {
-    const upto = points.slice(0, lastUnlockedIndex + 2); // +1 topo, +1 inclusivo
+    const lastNodeIdx = lastUnlockedIndex + 1;            // posição do último marco no array de pontos
+    // se depois dele só resta a âncora da base, estende a linha brilhante
+    // até ela — assim o traço do 900M desce até a divisória da seção
+    const isFinalNode = lastNodeIdx === points.length - 2;
+    const endIdx = isFinalNode ? points.length - 1 : lastNodeIdx;
+    const upto = points.slice(0, endIdx + 1);             // +1 topo, +1 inclusivo
     els.pathProg.setAttribute("d", buildPathD(upto));
     progLength = els.pathProg.getTotalLength();
-    progTopY = points[lastUnlockedIndex + 1].y;
+    // o reveal completa no nó do marco; assim o trecho final (do 900M até a
+    // divisória) já aparece desenhado por inteiro quando se chega ao marco
+    progTopY = points[lastNodeIdx].y;
     els.pathProg.style.strokeDasharray = progLength;
     updateProgress();
   } else {
