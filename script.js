@@ -38,7 +38,7 @@ const MILESTONES = [
   },
   {
     value: "600M",
-    status: "unlocked",
+    status: "locked",
     title: "Expansão",
     description: "Novos mercados, novas possibilidades. O alcance da empresa atinge outro patamar.",
     image: "image/premio-ranking-intec.png",
@@ -46,7 +46,7 @@ const MILESTONES = [
   },
   {
     value: "800M",
-    status: "unlocked",
+    status: "locked",
     title: "Reta de elite",
     description: "Pouquíssimas empresas chegam até aqui. Estamos entre as grandes.",
     image: "image/premio.png",
@@ -54,7 +54,7 @@ const MILESTONES = [
   },
   {
     value: "900M",
-    status: "unlocked",
+    status: "locked",
     title: "À beira do bilhão",
     description: "O último degrau antes do topo. A conquista histórica está ao alcance das mãos.",
     image: "image/equipe-grupo-faj.png",
@@ -68,11 +68,16 @@ const MILESTONES = [
    Mostra a jornada só até este marco (inclusive). Tudo depois dele — demais
    marcos, a seção do 1 bilhão, a chamada final, os sorteios e o encerramento —
    fica oculto até você liberar.
-   Para liberar mais conforme as metas forem batidas, troque o valor:
-     "400M" → "600M" → "800M" → "900M"
+   Mostra também o PRIMEIRO marco bloqueado logo a seguir, já embaçado e com
+   o aviso "fase bloqueada" — é o teaser do que ainda está por vir. A pessoa
+   não consegue rolar além desse ponto (1 bilhão, sorteios etc. ficam ocultos).
+
+   Conforme as metas forem batidas, avance o portão (e troque o status do
+   marco correspondente de "locked" para "unlocked" lá em cima):
+     "600M" → "800M" → "900M"
    Para liberar a página inteira, use: null
    ------------------------------------------------------------------------- */
-const GATE_VALUE = null;
+const GATE_VALUE = "600M";
 
 /* -------------------------------------------------------------------------
    FRASES DA ABERTURA — EDITE AQUI
