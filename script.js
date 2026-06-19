@@ -1071,6 +1071,23 @@ function init() {
     document.fonts.ready.then(() => requestAnimationFrame(drawTrack));
   }
   window.addEventListener("load", () => requestAnimationFrame(drawTrack));
+
+  // redesenha a trilha quando o layout dos marcos muda (ex.: imagens lazy
+  // carregando alteram a altura do card) — mantém os pins no meio dos cards
+  if ("ResizeObserver" in window && els.list) {
+    let roT = null;
+    const ro = new ResizeObserver(() => {
+      clearTimeout(roT);
+      roT = setTimeout(drawTrack, 120);
+    });
+    ro.observe(els.list);
+  }
+  // reforço: cada imagem de marco redesenha ao carregar
+  document.querySelectorAll(".milestone__media img").forEach((img) => {
+    if (!img.complete) {
+      img.addEventListener("load", () => requestAnimationFrame(drawTrack), { once: true });
+    }
+  });
 }
 
 if (document.readyState === "loading") {
